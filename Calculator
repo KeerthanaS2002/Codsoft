@@ -1,0 +1,109 @@
+import tkinter as tk
+from tkinter import messagebox
+def add(num1, num2):
+    return num1+num2
+
+def subtract(num1,num2):
+    return num1-num2
+
+def multiply(num1,num2):
+    return num1*num2
+
+def divide(num1,num2):
+    if num2!=0:
+        return num1/num2
+    else:
+        raise ValueError("Division by zero is not allowed")
+
+def button_click(item):
+    global expression
+    expression+=str(item)
+    input_text.set(expression)
+
+def button_clear():
+    global expression
+    expression=""
+    input_text.set("")
+
+def button_delete():
+    global expression
+    expression=expression[:-1]
+    input_text.set(expression)
+
+def button_equal():
+    global expression
+    try:
+        result=eval(expression)
+        input_text.set(str(result))
+        expression=str(result)
+    except Exception as e:
+        messagebox.showerror("Error","Invalid Input")
+        expression =""
+        
+root=tk.Tk()
+root.title("Calculator")
+root.geometry("500x650")  
+root.resizable(0, 0)
+
+expression=""
+input_text=tk.StringVar()
+buttons_frame=tk.Frame(root, width=400, height=480)
+buttons_frame.pack()
+display_button=tk.Button(buttons_frame,textvariable=input_text,font=('arial',24,'bold'),width=20,height=2,bd=1,
+                         relief=tk.SUNKEN,anchor='e')
+display_button.grid(row=0,column=0,columnspan=4,padx=10,pady=10,sticky='nsew') 
+clear=tk.Button(buttons_frame,text="AC",font=('arial',14),width=10,height=2,bd=1,relief=tk.RAISED,
+                command=lambda:button_clear())
+clear.grid(row=1,column=0,columnspan=3,padx=5,pady=5,sticky='nsew')
+delete=tk.Button(buttons_frame,text="⌫",font=('arial',14),width=5,height=2,bd=1,relief=tk.RAISED,
+                 command=lambda:button_delete())
+delete.grid(row=1,column=3,padx=5,pady=5,sticky='nsew')
+seven=tk.Button(buttons_frame,text="7",font=('arial',14),width=5,height=3,bd=1,relief=tk.RAISED,
+                command=lambda:button_click(7))
+seven.grid(row=2,column=0,padx=5,pady=5,sticky='nsew')
+eight=tk.Button(buttons_frame,text="8",font=('arial',14),width=5,height=3,bd=1,relief=tk.RAISED,
+                command=lambda:button_click(8))
+eight.grid(row=2,column=1,padx=5,pady=5,sticky='nsew')
+nine=tk.Button(buttons_frame,text="9",font=('arial',14),width=5,height=3,bd=1,relief=tk.RAISED,
+               command=lambda:button_click(9))
+nine.grid(row=2,column=2,padx=5,pady=5,sticky='nsew')
+divide=tk.Button(buttons_frame,text="/",font=('arial',14),width=5,height=3,bd=1,relief=tk.RAISED,
+                 command=lambda:button_click("/"))
+divide.grid(row=2,column=3,padx=5,pady=5,sticky='nsew')
+four=tk.Button(buttons_frame,text="4",font=('arial',14),width=5,height=3,bd=1,relief=tk.RAISED,
+               command=lambda:button_click(4))
+four.grid(row=3,column=0,padx=5,pady=5,sticky='nsew')
+five=tk.Button(buttons_frame,text="5",font=('arial',14),width=5,height=3,bd=1,relief=tk.RAISED,
+               command=lambda:button_click(5))
+five.grid(row=3,column=1,padx=5,pady=5,sticky='nsew')
+six=tk.Button(buttons_frame,text="6",font=('arial',14),width=5,height=3,bd=1,relief=tk.RAISED,
+              command=lambda:button_click(6))
+six.grid(row=3,column=2,padx=5,pady=5,sticky='nsew')
+multiply=tk.Button(buttons_frame,text="*",font=('arial',14),width=5,height=3,bd=1,relief=tk.RAISED,
+                   command=lambda:button_click("*"))
+multiply.grid(row=3,column=3,padx=5,pady=5,sticky='nsew')
+one=tk.Button(buttons_frame,text="1",font=('arial',14),width=5,height=3,bd=1,relief=tk.RAISED,
+              command=lambda:button_click(1))
+one.grid(row=4,column=0,padx=5,pady=5,sticky='nsew')
+two=tk.Button(buttons_frame,text="2",font=('arial',14),width=5,height=3,bd=1,relief=tk.RAISED,
+              command=lambda:button_click(2))
+two.grid(row=4,column=1,padx=5,pady=5,sticky='nsew')
+three=tk.Button(buttons_frame,text="3",font=('arial',14),width=5,height=3,bd=1,relief=tk.RAISED,
+                command=lambda:button_click(3))
+three.grid(row=4,column=2,padx=5,pady=5,sticky='nsew')
+subtract=tk.Button(buttons_frame,text="-",font=('arial',14),width=5,height=3,bd=1,relief=tk.RAISED,
+                   command=lambda:button_click("-"))
+subtract.grid(row=4,column=3,padx=5,pady=5,sticky='nsew')
+zero=tk.Button(buttons_frame,text="0",font=('arial',14),width=10,height=3,bd=1,relief=tk.RAISED,
+               command=lambda:button_click(0))
+zero.grid(row=5,column=0,columnspan=2,padx=5,pady=5,sticky='nsew')
+decimal=tk.Button(buttons_frame,text=".",font=('arial',14),width=5,height=3,bd=1,relief=tk.RAISED,
+                  command=lambda: button_click("."))
+decimal.grid(row=5,column=2,padx=5,pady=5,sticky='nsew')
+add=tk.Button(buttons_frame, text="+",font=('arial',14),width=5,height=3,bd=1,relief=tk.RAISED,
+              command=lambda:button_click("+"))
+add.grid(row=5, column=3, padx=5, pady=5, sticky='nsew')
+equals=tk.Button(buttons_frame, text="=",font=('arial',14),width=20,height=2,bd=1,relief=tk.RAISED,
+                 command=lambda:button_equal())
+equals.grid(row=6,column=0,columnspan=4,padx=5,pady=5,sticky='nsew')
+root.mainloop()
